@@ -2,8 +2,8 @@
 
 ## Introduction 
 
-Yo 
-Before starting this writeup, we would like to thank Thehackernewsbdarija community and thank the staff that created this box.
+Yo !
+before starting this writeup, we would like to thank Thehackernewsbdarija community and thank the staff that created this box.
 
 ![image](https://c.tenor.com/G0PWi59OVk0AAAAM/mr-bean-delicious.gif)
 
