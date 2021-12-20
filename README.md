@@ -20,11 +20,36 @@ Enjoy!
 ## Writeup
 
 ### Web 
-let's find the ip for the machine, i used netdiscover but you are free to use nmap or your router page 
+
+Let's start by finding the ip for the machine, i used netdiscover but you are free to use nmap or your router page 
 
 ```bash
 netdiscover -r 192.168.1.1/24
 ```
+
+Let's scan this machine with nmap 
+
+```Bash
+nmap -sV -sC -p- 192.168.1.109 
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-12-18 20:29 UTC
+Nmap scan report for 192.168.1.109
+Host is up (0.00040s latency).
+Not shown: 65533 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.5 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 01:a3:09:2d:6e:91:46:12:db:e5:de:58:d6:e9:50:c5 (RSA)
+|   256 11:48:e7:5c:60:fe:f1:45:ea:87:e7:84:9c:89:d9:cb (ECDSA)
+|_  256 44:1b:b9:a4:44:50:64:90:81:38:94:43:4c:c3:65:97 (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Site doesn't have a title (text/html; charset=utf-8).
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 23.24 seconds
+```
+
 
 I started by fuzzing on parameters to detect any parametes
 
