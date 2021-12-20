@@ -1,8 +1,8 @@
-## Th3HackerNewsBdarija box Writeup
+# Th3HackerNewsBdarija box Writeup
 
-### Introduction 
+## Introduction 
 
-Hey ! 
+Yo 
 Before starting this writeup, we would like to thank Thehackernewsbdarija community and thank the staff that created this box.
 
 ![image](https://c.tenor.com/G0PWi59OVk0AAAAM/mr-bean-delicious.gif)
@@ -17,9 +17,9 @@ Download link : https://drive.google.com/file/d/1ipYcoAsZ-uTrSpFcu4s0oo0OmBKqHwg
 
 Enjoy!
 
-# Writeup
+## Writeup
 
-## Web 
+### Web 
 let's find the ip for the machine, i used netdiscover but you are free to use nmap or your router page 
 
 ```bash
@@ -57,7 +57,7 @@ and we got a shell :
 
 ![ppd](https://i.imgur.com/QWpoHLI.png)
 
-## Pwn : 
+### Pwn 
 
 After getting a shell as c3p0 we can see an executable "hackernews"
 
@@ -81,7 +81,7 @@ The encoded password is encoded with Vigenere cipher with decode.fr
 
 `user.txt : thnb{m4b9a_w4l0_4lm0jt4h1D}`
 
-## Privelege esculation 
+### Privelege esculation
 
 Using `sudo -l` to check user priveleges, we can see that `c3p0` user can execute the find command as root user.
 
@@ -101,7 +101,7 @@ Eventually after using this command we can get a shell as root and read the flag
 
 `root flag : thnb{br4v0_4kh4y_lH4ck3r_y0u_d1D_1t}`
 
-## Privelege esculation 2 
+### Privelege esculation 2
 
 There's another technique for privilige escalation by exploiting the environment variable “LD_Preload”
 
@@ -144,9 +144,9 @@ whoami
 
 And we are root! 
 
-### Other techniques
+## Other techniques
 
-## Ubuntu Recovering Password 
+### Ubuntu Recovering Password 
 
 We can get root by using Ubuntu recovering password
 
@@ -180,7 +180,7 @@ And now we have access to both flags
 
 ![root](https://i.imgur.com/YhPJunl.png)
 
-## Vagrant SSH 
+### Vagrant SSH 
 
 By default in a box, vagrant user is enabled in the ssh config
 
@@ -210,12 +210,7 @@ Let's run `sudo -s` and we got root
 ![ssh](https://i.imgur.com/IJ0zluF.png)
 
 
-### Conclusion 
+# Conclusion 
 
 I hope you like the writeup 
 Good Hacking ! Peace
-
-
-
-
-
